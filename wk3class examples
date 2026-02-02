@@ -73,5 +73,64 @@ module example7 (x1,x2,f) connecting the two modules of ex6 and ex7
 
 endmodule
 
+//combining examples 8 and example 9
+module example8 (x1,x2,s,f)  
+  input x1,x2,s;
+  output f;
 
+  not(k,s);
+  and(g,x1,k);
+  and(h,s,x2);
+  or(f,g,h);
+endmodule
+
+module example9 (x1,x2,f)
+  input x1,x2
+  output f;
+  xnor (f,x1,x2);
+
+endmodule
+
+module topmodule8(a,b,c,d,s,f)
+  ionput a,b,c,d,s;
+  output f;
+
+  wire w1,w2;
+
+  example8 E1(a,b,s,w1)
+  example8 E2(c,d,s,w2)
+  example9 K3(w1,w2,f)
+
+endmodule
+//end of combining examples 8 and 9
+
+//NAMED PORT MAPPING EXAMPLE
+module example8 (x1,x2,s,f)  
+  input x1,x2,s;
+  output f;
+
+  not(k,s);
+  and(g,x1,k);
+  and(h,s,x2);
+  or(f,g,h);
+endmodule
+
+module example9 (x1,x2,f)
+  input x1,x2
+  output f;
+  xnor (f,x1,x2);
+
+endmodule
+
+module topmodule1(a,b,c,d,s,f)
+  input a,b,c,d,s;
+  output f;
+
+  wire w1,w2;
+
+  example8 E1(.x1(a), .x2(b), s(s), .f(w1))
+  example8 E2(.x1(c), .x2(d), .s(s), .f(w2))
+  example9 K3(...//need to finish from slides
+
+endmodule
 
