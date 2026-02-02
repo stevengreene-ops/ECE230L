@@ -1,0 +1,77 @@
+module example1 (x1,x2,s,f)
+  input x1,x2, s;
+  output f;
+
+  and(c,a,b);
+
+
+endmodule
+
+module example2 (x1,x2,s,f)
+  input x1,x2,s;
+  output f;
+
+  wire k,g,h
+
+//order of the below are not important
+  not(k,s); //output first k, then s is input
+  and(g,x1,k); //output first g, then input x1 and k
+  and(h,s,x2);
+  or(f,g,h);
+
+endmodule
+
+module example3 (x1,x2,s,f)
+  input x1,x2,s;
+  output f;
+
+assign f=(~s & x1)|(s&x2); //same as example2
+
+endmodule
+
+module example4 (x1,x2,s,f) //behavioral code example 
+  input x1,x2,s;
+  output f;
+
+  reg f; //because this is sequential, needs to remember the previous value of f before it changes 
+  //reg remembers the previous state - executes in sequents, EXECUTES EVERYTIME S CHANGES
+  always@(s) //meaning execute the following in sequence (always at anychange of S, execute the following)
+  if (s==0)
+      f=x1;
+  else
+      f=x2;
+
+endmodule
+
+module example5 (x1,x2,s,f) //behavioral code example 
+  input x1,x2,s;
+  output f;
+
+  reg f;
+  always@(x1 or x2 or s) //can write as always@(*) //if anychange of any input: execute the following
+  if(s==0)
+        f=x1;
+  else
+        f=x2
+
+endmodule
+
+module example6 (x1,x2,s,f) 
+  input x1,x2,s;
+  output f;
+  wire k,g,h;
+  not(k,s);
+  and(g,x1,k);
+  and(h,s,x2);
+  or(f,g,h);
+endmodule
+
+module example7 (x1,x2,f) connecting the two modules of ex6 and ex7
+  input x1, x2;
+  output f;
+  xnor(f,x1,x2)
+
+endmodule
+
+
+
